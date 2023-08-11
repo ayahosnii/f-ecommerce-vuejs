@@ -15,20 +15,25 @@
             <div class="mini-product-container gl-scroll u-s-m-b-15">
 
                 <!--====== Card for mini cart ======-->
-                <div  v-for="(item, index) in items" :key="item.id" class="card-mini-product">
+                <div  v-for="(item, index) in items" :key="index" class="card-mini-product">
                     <div class="mini-product">
-                        <div class="mini-product__image-wrapper">
-
-                            <a class="mini-product__link" href="product-detail.html">
-
-                                <img v-for="image in item.images" class="u-img-fluid" :src="`/assets/images/product/${image.photo}`" :alt="item.slug"></a></div>
-                        <div class="mini-product__info-wrapper">
+                      <div class="mini-product__image-wrapper">
+                        <a class="mini-product__link" href="product-detail.html">
+                          <div v-for="image in item.images" :key="image.id">
+                            <img class="u-img-fluid" :src="`/assets/images/product/${image.photo}`" :alt="item.slug">
+                          </div>
+                        </a>
+                      </div>
+                      <div class="mini-product__info-wrapper">
 
                             <span class="mini-product__category">
+                                <a v-for="category in item.categories" :key="category.id" href="shop-side-version-2.html">
+                                    {{ category.name }}
+                                </a>
+                            </span>
 
-                                <a v-for="category in item.categories" href="shop-side-version-2.html">{{ category.name }}</a></span>
 
-                            <span class="mini-product__name">
+                        <span class="mini-product__name">
 
                             <a href="product-detail.html">{{ item.name }}</a></span>
 
@@ -63,6 +68,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data(){
         return {

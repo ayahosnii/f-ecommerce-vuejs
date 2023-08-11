@@ -1,5 +1,8 @@
 <template>
-    <p v-if="errorMessage">{{ errorMessage }}</p>
+  <front-layout>
+
+
+  <p v-if="errorMessage">{{ errorMessage }}</p>
 
         <!--====== Section 1 ======-->
         <div class="u-s-p-y-60">
@@ -65,10 +68,13 @@
 
                                                                 <a :href="`details/${item.id}`">{{ item.name }}</a></span>
 
-                                                    <span class="table-p__category">
+                                                  <span class="table-p__category">
+                                                    <a v-for="category in item.categories" :key="category.id" href="shop-side-version-2.html">
+                                                      {{ category.name }}
+                                                    </a>
+                                                  </span>
 
-                                                                <a v-for="category in item.categories" href="shop-side-version-2.html">{{ category.name }}</a></span>
-                                                    <ul class="table-p__variant-list">
+                                                  <ul class="table-p__variant-list">
                                                         <li>
 
                                                             <span>Size: 22</span></li>
@@ -236,10 +242,13 @@
             <!--====== End - Section Content ======-->
         </div>
         <!--====== End - Section 3 ======-->
+    </front-layout>
+
 </template>
 
 <script>
-import apiClient from "../../services/api";
+//import apiClient from '../../services/api';
+import axios from 'axios';
 
 export default {
     data(){
@@ -272,17 +281,6 @@ export default {
                 console.error('Error fetching data:', error);
             }
         },
-        async deleteItem(index, slug) {
-            try {
-                this.items.splice(index, 1);
-                console.log(slug)
-                const response = await axios.post('/api/delete-cart', {slug});
-                const responseData = response.data;
-                console.log(responseData);
-            } catch (error) {
-                console.error(error);
-            }
-        },
         increaseQuantity(index) {
             this.items[index].quantity++;
             this.updateQuantity(index, this.items[index].quantity, this.items[index].slug);
@@ -294,6 +292,18 @@ export default {
                 this.updateQuantity(index, this.items[index].quantity, this.items[index].slug);
             }
         },
+        async deleteItem(index, slug) {
+            try {
+                this.items.splice(index, 1);
+                console.log(slug)
+                const response = await axios.post('/api/delete-cart', {slug});
+                const responseData = response.data;
+                console.log(responseData);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
         updateSubtotal(index, salePrice)
         {
             return this.fetchSubTotal() - salePrice

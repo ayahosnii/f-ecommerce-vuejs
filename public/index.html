@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+<head>
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="assets/images/favicon.png" rel="shortcut icon">
+    <title>Fashion</title>
+
+    <!--====== Google Font ======-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+
+    <!--====== Vendor Css ======-->
+    <link rel="stylesheet" href="assets/css/vendor.css">
+
+    <!--====== Utility-Spacing ======-->
+    <link rel="stylesheet" href="assets/css/utility.css">
+
+    <!--====== App ======-->
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="config">
+<!--<div class="preloader is-active">-->
+<!--    <div class="preloader__wrap">-->
+
+<!--        <img class="preloader__img" src="assets/images/preloader.png" alt="">-->
+<!--    </div>-->
+<!--</div>-->
+
+    <div class="vue"></div>
+<script src="assets/js/app.js"></script>
+
+
+<!--====== Vendor Js ======-->
+<script src="assets/js/vendor.js"></script>
+
+<!--====== jQuery Shopnav plugin ======-->
+<script src="assets/js/jquery.shopnav.js"></script
   </body>
 </html>
