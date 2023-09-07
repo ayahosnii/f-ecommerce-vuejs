@@ -18,8 +18,10 @@
     "vue-isotope": "^0.1.0",
     "vue-router": "^4.2.4",
     "vue-slick-carousel": "^1.0.6",
+    "vue-toast-notification": "^3.1.1",
     "vueisotope": "^3.1.2",
-    "vueperslides": "^3.5.1"
+    "vueperslides": "^3.5.1",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

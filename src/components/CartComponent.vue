@@ -1,3 +1,4 @@
+<script src="../../services/api.js"></script>
 <template>
   <front-layout>
 

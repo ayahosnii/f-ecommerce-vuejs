@@ -1,7 +1,8 @@
 <script>
  // import apiClient from "../../../services/api";
-import axios from 'axios';
 
+ import axios from 'axios';
+ import {useToast} from "vue-toast-notification";
 export default {
   data() {
     return {
@@ -9,32 +10,37 @@ export default {
     };
   },
   methods: {
-// Inside your Vue component
     async addToCart(product) {
       try {
         // apiClient
         const slug = product.slug;
         const quantity = 1;
+        const $toast = useToast();
 
 
-        const response = await axios.post('http://127.0.0.1:8000/api/cart/add',
+
+        await axios.post('http://127.0.0.1:8000/api/cart/add',
             {
               slug,
               quantity
             });
-        console.log(response.data, slug);
+
+        $toast.success('You\'ve added it in the cart!')
       } catch (error) {
-        console.error(error);
+        console.log(error)
       }
     },
     async addToWishlist(product) {
       try {
+        const $toast = useToast();
+
         const productId = product.id;
 
         const accessToken = localStorage.getItem('access_token');
         if (accessToken) {
           const response = await axios.post('/api/wish-list/add', { productId });
           console.log(response.data);
+          $toast.success('You\'ve added it in the wishlist!')
         } else {
           this.$router.push('/login');
           return;

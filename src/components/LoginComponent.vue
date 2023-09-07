@@ -2,7 +2,6 @@
   <front-layout>
         <!--====== Section 1 ======-->
         <div class="u-s-p-y-60">
-            <notify :options="{ title: 'Notification Title', text: 'Notification Text' }" />
             <!--====== Section Content ======-->
             <div class="section__content">
                 <div class="container">
@@ -123,9 +122,8 @@
 
 <script>
 import axios from 'axios';
-//import apiClient from "../../services/api";
-import {notify} from "@kyvg/vue3-notification";
-
+import apiClient from "../../services/api";
+//import store from '../store'
 
 export default {
     data() {
@@ -133,46 +131,39 @@ export default {
             email: '',
             password: '',
             errors: {},
+          loginError: false,
         };
     },
+  // mounted() {
+  //   let instance = this.$toast.open('You did it!');
+  //
+  //   // Force dismiss specific toast
+  //   instance.dismiss();
+  //
+  //   // Dismiss all opened toast immediately
+  //   this.$toast.clear();
+  // },
     methods: {
-        async login() {
-            try {
-              const response = await axios.post('http://127.0.0.1:8000/api/auth/login', {
-                    email: this.email,
-                    password: this.password,
-                },{
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                });
-              if (response.data.access_token) {
-                localStorage.setItem('access_token', response.data.access_token);
-                localStorage.setItem('user', JSON.stringify(response.data));
-              }
+       login() {
+         apiClient
+         this.loginError = false;
 
-              console.log('Logged in successfully', response.data)
+         axios.post('/api/auth/login', {
+            email: this.email,
+            password: this.password,
+          }).then(response => {
 
-            } catch (error) {
-                if (error.response && error.response.status === 422) {
-                    this.errors = error.response.data.errors;
-                    notify({
-                        title: "Authorization",
-                        text: "You have been logged in! Error: " + error,
-                    });
-                } else {
-                    console.error('Login failed', error);
-                    notify({
-                        title: "Authorization",
-                        text: "Login failed! Error: " + error,
-                    });
-                }
-            }
-        }
+          // store.commit('loginUser');
 
-    },
-    components: {
-        notify,
+           localStorage.setItem('access_token', response.data.access_token);
+           this.$router.push('/');
+           console.log('Logged in successfully', response.data);
+         }).catch(error => {
+           this.loginError = true;
+           console.error('Login error:', error);
+         });
+      }
+
     },
 };
 </script>
